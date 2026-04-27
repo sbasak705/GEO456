@@ -36,7 +36,7 @@
             iconUrl: "https://cdn-icons-png.flaticon.com/512/3610/3610185.png", 
             iconSize: [25,25],
             popupAnchor: [0, 0]
-        }).addTo(map);
+        });
 
     var openStreetMap = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
@@ -48,8 +48,10 @@
       attribution: "Map data: &copy; OpenStreetMap contributors | Map style: &copy; OpenTopoMap"
     });
 
-
   
+    openStreetMap.addTo(map);
+
+    
 //From leaflet examples: https://leafletjs.com/reference.html#layergroup
     var hsLayer = L.geoJSON(triangleHighSchools, {
         pointToLayer: function (feature, latlng) {
@@ -65,6 +67,7 @@
     }).addTo(map);
 
    
+
     
     var baseLayers = {
       "OpenStreetMap": openStreetMap,
@@ -74,7 +77,9 @@
     var overlays = {
       "Triangle High Schools": hsLayer
     };
+//From leaflet examples: https://leafletjs.com/reference.html#layergroup
 
+    L.control.layers(baseLayers, overlays, { collapsed: false }).addTo(map);
   </script>
 </body>
 </html>
