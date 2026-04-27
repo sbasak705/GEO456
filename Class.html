@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tables</title>
+
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+     <script src="./NC20counties_pop_4326.js"></script>
+
+
+
+
+</head>
+
+<body>
+    <div id="mapid"></div>
+    <style>
+        #mapid{width:900px; height: 500px;}
+    </style>
+    <table id="ncTable">
+  <tr>
+    <th>Name</th>
+    <th>Population</th>
+  </tr>
+</table>
+
+    <script>
+
+    var map = L.map("mapid").setView([35.77296841827961, -78.89973632725632], 8);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
+
+    
+    function myFunction(e){
+        console.log(e.target.feature.properties.NAME)
+    }
+    function onEachFeature(feature, layer) {
+        layer.on({mouseover : myFunction})
+        // if (feature.properties && feature.properties.NAME) {
+        //     layer.bindPopup(features.properties.NAME)
+        // }
+    }
+
+    L.geoJSON(nc, {
+        onEachFeature: onEachFeature
+    }).addTo(map)
+    var myTable = document.getElementById("ncTable")
+        function popTable(feature){
+            var myRow = document.createElement("tr")
+            var myCell1 = document.createElement("td")
+            var myCell2 = document.createElement("td")
+            var name = feature.properties.NAME
+            var population = feature.properties.Total
+            myCell1.innerHTML = name
+            myCell2.innerHTML = population
+            myRow.append(myCell1)
+            myRow.append(myCell2)
+            myTable.append(myRow)
+
+        }
+    nc.features.forEach(e => popTable(e))
+        
+        
+    </script>
+</body>

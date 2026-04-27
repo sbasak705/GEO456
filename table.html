@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tables</title>
+
+     <script src="./NC20counties_pop_4326.js"></script>
+
+
+
+
+</head>
+
+<body>
+    <table id="ncTable">
+  <tr>
+    <th>Name</th>
+    <th>Population</th>
+  </tr>
+</table>
+</body>
+
+<script>
+
+var myTable = document.getElementById("ncTable")
+    function popTable(feature){
+        var myRow = document.createElement("tr")
+        var myCell1 = document.createElement("td")
+        var myCell2 = document.createElement("td")
+        var name = feature.properties.NAME
+        var population = feature.properties.Total
+        myCell1.innerHTML = name
+        myCell2.innerHTML = population
+
+        myCell1.addEventListener("click",function(){console.log("hello world 1")})
+        myCell2.addEventListener("mousecenter",function(){console.log("hello world 2")})
+        myRow.append(myCell1)
+        myRow.append(myCell2)
+        myTable.append(myRow)
+
+    }
+nc.features.forEach(e => popTable(e))
+    
+    
+</script>

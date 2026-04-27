@@ -1,7 +1,3 @@
-// triangle_hs.js
-// GeoJSON of Triangle-area high schools (12 features)
-// Coordinates are approximate; replace with verified coordinates if required.
-
 var triangleHighSchools = {
   "type": "FeatureCollection",
   "features": [
